@@ -9,12 +9,15 @@
 		<noScript> 
 			No Javascript :( <br>
 		</noScript>	
-		<canvas id="canvas" width="device-width" height="300" style="border: 1px solid black;">
+		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
 			No Canvas :( <br>
 		</canvas>
 		
 		<script>
 			var canvas = document.getElementById("canvas");
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			
 			var context = canvas.getContext("2d");
 
 			var frameRate = 60;
