@@ -23,7 +23,9 @@
 			var frameRate = 60;
 			var frameLength	= 1000 / 60;
 
-			var audio = new AudioContext();
+			window.AudioContext = window.AudioContext||window.webkitAudioContext;
+
+			var audio = new AudioContext() || new AudioContext() || new webkitAudioContext();
 			var vol = audio.createGain();
 		  	vol.gain.value = .125;
 			vol.connect(audio.destination);	
