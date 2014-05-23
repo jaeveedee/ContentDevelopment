@@ -1,3 +1,26 @@
+var isUnlocked = false;
+function unlock() {
+			
+	if(isIOS || this.unlocked)
+		return;
+
+	// create empty buffer and play it
+	var buffer = myContext.createBuffer(1, 1, 22050);
+	var source = myContext.createBufferSource();
+	source.buffer = buffer;
+	source.connect(myContext.destination);
+	source.noteOn(0);
+
+	// by checking the play state after some time, we know if we're really unlocked
+	setTimeout(function() {
+		if((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
+			isUnlocked = true;
+		}
+	}, 0);
+
+}
+
+
 for(i = 0; i < 8; i++) {
 	emitters.push(new emitter(Math.random() * 400, Math.random() * 300, Math.random() * 15 + 10));
 }
@@ -39,7 +62,7 @@ var mainLoop = function() {
 	draw();
 };
 
-setInterval(mainLoop, frameLength);
+setInterval(mainLoop, frameLength);//request animation frame , paul irish article
 
 
 canvas.onmousedown = function(e) {
