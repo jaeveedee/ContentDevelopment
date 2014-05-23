@@ -66,6 +66,7 @@ setInterval(mainLoop, frameLength);//request animation frame , paul irish articl
 
 
 canvas.onmousedown = function(e) {
+	unlock();
 	origins.push(new origin(e.pageX, e.pageY));
 };
 
