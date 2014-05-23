@@ -1,14 +1,11 @@
 var isUnlocked = false;
 function unlock() {
-			
-	if(isIOS || this.unlocked)
-		return;
 
 	// create empty buffer and play it
-	var buffer = context.createBuffer(1, 1, 22050);
-	var source = context.createBufferSource();
+	var buffer = audio.createBuffer(1, 1, 22050);
+	var source = audio.createBufferSource();
 	source.buffer = buffer;
-	source.connect(context.destination);
+	source.connect(audio.destination);
 	source.noteOn(0);
 
 	// by checking the play state after some time, we know if we're really unlocked
