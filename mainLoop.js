@@ -21,7 +21,7 @@ function unlock() {
 
 
 for(i = 0; i < 8; i++) {
-	emitters.push(new emitter(Math.random() * 400, Math.random() * 300, Math.random() * 15 + 10));
+	emitters.push(new emitter(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 15 + 10));
 }
 
 var update = function() {
