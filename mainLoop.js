@@ -20,6 +20,8 @@ function unlock() {
 
 }
 
+unlock();
+
 
 for(i = 0; i < 8; i++) {
 	emitters.push(new emitter(Math.random() * 400, Math.random() * 300, Math.random() * 15 + 10));
@@ -66,7 +68,6 @@ setInterval(mainLoop, frameLength);//request animation frame , paul irish articl
 
 
 canvas.onmousedown = function(e) {
-	unlock();
 	origins.push(new origin(e.pageX, e.pageY));
 };
 
