@@ -57,8 +57,8 @@ var collide = function(c1, c2) {
 	for(i = 0; i < l1; i++) {
 		for(j = 0; j < l2; j++) {
 			if(circleCollision(c1[i], c2[j])) {
-			c1[i].hitByThing();
-			c2[j].hitByThing();
+			c1[i].hitByThing(c2[j]);
+			c2[j].hitByThing(c1[i]);
 			}	
 		}
 	}

@@ -1,15 +1,17 @@
 <!doctype html>
 <html lang="en">
 	<head>
+	
 		<title>Content Development</title>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	</head>
 
 	<body>
 		<noScript> 
 			No Javascript :( <br>
 		</noScript>	
-		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
+		<canvas id="canvas" width="400" height="300" >
 			No Canvas :( <br>
 		</canvas>
 		
@@ -25,9 +27,35 @@
 
 			window.AudioContext = window.AudioContext||window.webkitAudioContext;
 
-			var audio = new AudioContext() || new AudioContext() || new webkitAudioContext();
+			var audio = new AudioContext() || new webkitAudioContext();
+			
 			var vol = audio.createGain();
-		  	vol.gain.value = .125;
+			
+			var del = audio.createDelay();
+			del.delayTime.value = 115 / 1000;
+			var fb = audio.createGain();
+			fb.gain.value = .75;
+	
+			var delScale = audio.createGain();
+			delScale.gain.value = .75;
+
+			var delMod = audio.createOscillator();
+			delMod.type = "sine";
+			delMod.frequency.value = .005;
+			delMod.start(0);
+
+			var delModAmp = audio.createGain();
+			delModAmp.gain.value = .06;
+
+			delScale.connect(del);
+
+			delMod.connect(delModAmp);
+			delModAmp.connect(del.delayTime);
+
+			del.connect(fb);
+			fb.connect(del);
+			fb.connect(vol);
+		  	vol.gain.value = .35;
 			vol.connect(audio.destination);	
 			
 		</script>
