@@ -17,7 +17,7 @@ function unlock() {
 
 }
 
-unlock();
+
 
 
 for(i = 0; i < 8; i++) {
@@ -65,6 +65,10 @@ setInterval(mainLoop, frameLength);//request animation frame , paul irish articl
 
 
 canvas.onmousedown = function(e) {
+
+	if (!isUnlocked) {
+		unlock();
+	};
 	origins.push(new origin(e.pageX, e.pageY));
 };
 
