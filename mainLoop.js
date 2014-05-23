@@ -5,10 +5,10 @@ function unlock() {
 		return;
 
 	// create empty buffer and play it
-	var buffer = myContext.createBuffer(1, 1, 22050);
-	var source = myContext.createBufferSource();
+	var buffer = context.createBuffer(1, 1, 22050);
+	var source = context.createBufferSource();
 	source.buffer = buffer;
-	source.connect(myContext.destination);
+	source.connect(context.destination);
 	source.noteOn(0);
 
 	// by checking the play state after some time, we know if we're really unlocked
