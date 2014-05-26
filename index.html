@@ -16,9 +16,9 @@
 		</canvas>
 		
 		<script>
-			//document.ontouchstart = function(e){ 
-			//	e.preventDefault(); 
-			//}
+			document.ontouchmove = function(e){ 
+				e.preventDefault(); 
+			}
 		
 			var canvas = document.getElementById("canvas");
 			canvas.width = window.innerWidth;
