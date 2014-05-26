@@ -59,11 +59,12 @@
 			del.connect(fb);
 			fb.connect(del);
 			fb.connect(vol);
-		  	vol.gain.value = .35;
+		  	vol.gain.value = .5;
 			vol.connect(audio.destination);	
 			
 		</script>
 		<script src="util.js"></script>
+		<script src="synths.js"></script>
 		<script src="objects.js"></script>
 		<script src="mainLoop.js"></script>
 	</body>

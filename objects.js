@@ -35,6 +35,7 @@ var emitter = function(x, y, size) {
 	this.dead = false;
 	this.hit = false;
 	this.color = "#000000";
+	this.hitLastTime = false;
 
 	this.synth = new fmSynth();
 	this.synth.carrier.frequency.value = (1 - (this.size / 12)) * 1000 + 60;
@@ -48,11 +49,13 @@ var emitter = function(x, y, size) {
 
 
 emitter.prototype.update = function() {
-	if(this.hit) {
-		this.synth.ampEnv.gain.value = 1;
+	if(this.hit && !this.hitLastTime) {
+		this.synth.attack(.01);
+		this.hitLastTime = true;
 	}
-	else {
-		this.synth.ampEnv.gain.value = 0;
+	else if(!this.hiy && this.hitLastTime) {
+		this.synth.release(.25);
+		this.hitLastTime = false;
 	}
 	this.hit = false;
 };
@@ -77,48 +80,5 @@ emitter.prototype.draw = function() {
 		drawCircle(this.x, this.y, this.size, true);
 };
 
-//FM SYNTH----------------------------------
-var fmSynth = function() {
-	//carrier
-	this.carrier = audio.createOscillator();
-	this.carrier.type = "sine";
-	this.carrier.start(0);
-
-	//modulator
-	this.modulator = audio.createOscillator();
-	this.modulator.type = "sine";
-	this.modulator.start(0);
-	
-	//lfo
-	this.lfo = audio.createOscillator();
-	this.lfo.type = "sine";
-	this.lfo.start(0);
-	
-	//lfo ammount
-	this.lfoAmp = audio.createGain();
-	this.lfoAmp.gain.maxValue = 1000;
-
-	//mod ammount
-	this.mod = audio.createGain();
-	this.mod.gain.maxValue = 1000;
-	this.modEnv = audio.createGain();
-
-	//amp
-	this.amp = audio.createGain();
-	this.ampEnv = audio.createGain();
-
-	//patching
-	// [modulator]-gain->[mod]-gain->[modEnv]-frequency->[carrier]-gain->[amp]-gain->[ampEnv]->[destination]
-	//                 [lfo]-gain->[lfoAmp]-frequency-|
-	this.modulator.connect(this.mod);
-	this.mod.connect(this.modEnv);
-	this.modEnv.connect(this.carrier.frequency);
-	this.lfo.connect(this.lfoAmp);
-	this.lfoAmp.connect(this.carrier.frequency);
-	this.carrier.connect(this.amp);
-	this.amp.connect(this.ampEnv);
-	this.ampEnv.connect(delScale);
-	this.ampEnv.connect(vol);
-}
 
 
