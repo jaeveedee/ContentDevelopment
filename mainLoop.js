@@ -24,7 +24,7 @@ for(i = 0; i < 12; i++) {
 	emitters.push(new emitter(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 10 + 2));
 }
 
-var update = function() {
+var update = function(dt) {
 	var l = origins.length;
 	for(i = 0; i < l; i++) {
 		origins[i].update();
@@ -56,12 +56,20 @@ var draw = function() {
 
 };
 
+var dt = 0;
+var pt = window.performance.now();
+
 var mainLoop = function() {
-	update();
+	window.requestAnimationFrame(mainLoop);
+	dt = window.performance.now() - pt;
+	dt *= .01;
+	pt = window.performance.now();
+	update(dt);
 	draw();
 };
 
-setInterval(mainLoop, frameLength);//request animation frame , paul irish article
+mainLoop();
+
 
 
 canvas.onmousedown = function(e) {
