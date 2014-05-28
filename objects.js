@@ -36,34 +36,57 @@ var emitter = function(x, y, size) {
 	this.hit = false;
 	this.color = "#000000";
 	this.hitLastTime = false;
+	this.hasTone = false;
+	this.amp = 0;
 
-	this.synth = new fmSynth();
-	this.synth.carrier.frequency.value = (1 - (this.size / 12)) * 1000 + 60;
-	this.synth.modulator.frequency.value = Math.random() * 1000 + 20;
-	this.synth.lfo.frequency.value = 4;
-	this.synth.lfoAmp.gain.value = Math.random() * 20;
-	this.synth.mod.gain.value = Math.random() * 1000;
-	this.synth.amp.gain.value = .25;
+	
+	
+	
+	//this.synth = new fmSynth();
+	//this.synth.carrier.frequency.value = (1 - (this.size / 12)) * 1000 + 60;
+	//this.synth.modulator.frequency.value = Math.random() * 1000 + 20;
+	//this.synth.lfo.frequency.value = 4;
+	//this.synth.lfoAmp.gain.value = Math.random() * 20;
+	//this.synth.mod.gain.value = Math.random() * 1000;
+	//this.synth.amp.gain.value = .25;
+
 
 };
 
 
-emitter.prototype.update = function() {
-	if(this.hit && !this.hitLastTime) {
-		this.synth.attack(.01);
+emitter.prototype.update = function(dt) {
+	if(this.hit && !this.hitLastTime && !this.hasTone) {
+		//this.synth.attack(.01);
+
+		this.tone = new fmTone(this.x, this.y, 200 * this.size/12, .1, .1, .1, .125, this.amp);
+		this.hasTone = true;
 		this.hitLastTime = true;
 	}
-	else if(!this.hiy && this.hitLastTime) {
-		this.synth.release(.25);
+	else if(!this.hit && this.hitLastTime) {
+		//this.synth.release(.25);
+		this.tone.release();
 		this.hitLastTime = false;
 	}
 	this.hit = false;
+
+	if(this.hasTone) {
+		if(!this.tone.dead) {
+			this.tone.update();
+		}
+		else {
+			delete this.tone;
+			this.hasTone = false;
+			console.log("deleted");
+		}
+	}
 };
 
 emitter.prototype.hitByThing = function(thing) {
 	this.hit = true;
 	var numThing = thing.size / thing.maxSize;
-	this.synth.amp.gain.value = .25 * (1 - numThing);
+	
+	//this.synth.amp.gain.value = .25 * (1 - numThing);
+	this.amp = .25 * (1 - numThing);
 	var c = numThing * 256;
 	this.color = getColor(c, c, c);
 };

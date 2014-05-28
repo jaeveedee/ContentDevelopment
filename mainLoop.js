@@ -32,7 +32,7 @@ var update = function(dt) {
 
 	var l = emitters.length;
 	for(i = 0; i < l; i++) {
-		emitters[i].update();
+		emitters[i].update(dt);
 	}
 
 	collide(origins, emitters);
