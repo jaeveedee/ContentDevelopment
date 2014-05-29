@@ -38,6 +38,10 @@ var emitter = function(x, y, size) {
 	this.hitLastTime = false;
 	this.hasTone = false;
 	this.amp = 0;
+	
+	this.cFreq = (1 - (this.size / 12)) * 1000 + 60;
+	this.mFreq = Math.random() * 1000 + 20;
+	this.mAmp = Math.random() * 1000;
 
 	
 	
@@ -58,7 +62,7 @@ emitter.prototype.update = function(dt) {
 	if(this.hit && !this.hitLastTime && !this.hasTone) {
 		//this.synth.attack(.01);
 		
-		this.tone = new fmTone(this.x, this.y, 200 * this.size/12, .1, .1, .1, .125, this.amp);
+		this.tone = new fmTone(this.cFreq, this.mFreq, this.mAmp, .1, .1, .1, .125, this.amp);
 		this.hasTone = true;
 		this.hitLastTime = true;
 	}
