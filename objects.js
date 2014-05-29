@@ -34,7 +34,7 @@ var emitter = function(x, y, size) {
 	this.size = size;
 	this.dead = false;
 	this.hit = false;
-	this.color = "#000000";
+	this.color = "#ffffff";
 	this.hitLastTime = false;
 	this.hasTone = false;
 	this.amp = 0;
@@ -57,7 +57,7 @@ var emitter = function(x, y, size) {
 emitter.prototype.update = function(dt) {
 	if(this.hit && !this.hitLastTime && !this.hasTone) {
 		//this.synth.attack(.01);
-
+		
 		this.tone = new fmTone(this.x, this.y, 200 * this.size/12, .1, .1, .1, .125, this.amp);
 		this.hasTone = true;
 		this.hitLastTime = true;
@@ -72,6 +72,8 @@ emitter.prototype.update = function(dt) {
 	if(this.hasTone) {
 		if(!this.tone.dead) {
 			this.tone.update();
+			var c = (1-(this.tone.ampEnv.gain.value * this.tone.scale * 4)) * 256 ;
+			this.color = getColor(c,c,c);
 		}
 		else {
 			delete this.tone;
@@ -79,6 +81,7 @@ emitter.prototype.update = function(dt) {
 			console.log("deleted");
 		}
 	}
+	
 };
 
 emitter.prototype.hitByThing = function(thing) {
@@ -87,20 +90,14 @@ emitter.prototype.hitByThing = function(thing) {
 	
 	//this.synth.amp.gain.value = .25 * (1 - numThing);
 	this.amp = .25 * (1 - numThing);
-	var c = numThing * 256;
-	this.color = getColor(c, c, c);
+	
 };
 
 emitter.prototype.draw = function() {
 	context.lineWidth = 2;
 	context.strokeStyle = "#000000";
-	if(!this.hit) {
-		context.fillStyle = "#FFFFFF";
-	}
-	else {
-		context.fillStyle = this.color;
-	}
-		drawCircle(this.x, this.y, this.size, true);
+	context.fillStyle = this.color;
+	drawCircle(this.x, this.y, this.size, true);
 };
 
 

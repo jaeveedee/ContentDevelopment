@@ -127,7 +127,7 @@ fmTone.prototype.release = function(t) {
 
 
 fmTone.prototype.update = function() {
-	if(this.ampEnv.gain.value < 1.0e-7) {
+	if(this.ampEnv.gain.value < 2.5e-2) {
 		this.timeOut++;
 	}
 	else {
