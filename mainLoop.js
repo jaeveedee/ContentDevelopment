@@ -60,7 +60,7 @@ var dt = 0;
 var pt = window.performance.now();
 
 var mainLoop = function() {
-	window.requestAnimationFrame(mainLoop);
+	window.requestAnimationFrame(mainLoop) || window.webKitRequestAnimationFrame(mainLoop);
 	dt = window.performance.now() - pt;
 	dt *= .01;
 	pt = window.performance.now();
