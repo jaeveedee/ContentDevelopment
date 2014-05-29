@@ -17,7 +17,7 @@ function unlock() {
 
 }
 
-for(i = 0; i < 16; i++) {
+for(i = 0; i < 48; i++) {
 	emitters.push(new emitter(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 10 + 2));
 }
 
