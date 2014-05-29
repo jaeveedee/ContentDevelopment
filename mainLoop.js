@@ -17,9 +17,6 @@ function unlock() {
 
 }
 
-
-
-
 for(i = 0; i < 16; i++) {
 	emitters.push(new emitter(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 10 + 2));
 }
@@ -57,13 +54,14 @@ var draw = function() {
 };
 
 var dt = 0;
-var pt = window.performance.now();
+//var pt = window.performance.now();
 
 var mainLoop = function() {
 	window.requestAnimationFrame(mainLoop) || window.webKitRequestAnimationFrame(mainLoop);
-	dt = window.performance.now() - pt;
-	dt *= .01;
-	pt = window.performance.now();
+	//dt = window.performance.now() - pt;
+	//dt *= .01;
+	//pt = window.performance.now();
+	dt = 0;
 	update(dt);
 	draw();
 };
