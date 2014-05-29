@@ -5,7 +5,7 @@ var origin = function(x, y) {
 	this.y = y;
 	this.size = 0;
 	this.dead = false;
-	this.maxSize = 125;
+	this.maxSize = 512;
 };
 
 origin.prototype.update = function() {
