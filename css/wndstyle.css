@@ -1,8 +1,10 @@
 .button {
 	display: inline;
+	height: 15%;
+	background-color: blue;
 }
 
 .container {
-	background-color: red;
+	
 }
 

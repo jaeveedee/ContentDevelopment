@@ -1,3 +1,48 @@
+document.ontouchmove = function(e){ 
+	e.preventDefault(); 
+}
+var canvas = document.getElementById("canvas");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight * 0.85;
+
+var context = canvas.getContext("2d");
+
+var frameRate = 60;
+var frameLength	= 1000 / 60;
+
+window.AudioContext = window.AudioContext||window.webkitAudioContext;
+
+var audio = new AudioContext() || new webkitAudioContext();
+
+var vol = audio.createGain();
+
+var del = audio.createDelay();
+del.delayTime.value = 115 / 1000;
+var fb = audio.createGain();
+fb.gain.value = .75;
+
+var delScale = audio.createGain();
+delScale.gain.value = .75;
+
+var delMod = audio.createOscillator();
+delMod.type = "sine";
+delMod.frequency.value = .005;
+delMod.start(0);
+
+var delModAmp = audio.createGain();
+delModAmp.gain.value = .06;
+
+delScale.connect(del);
+
+delMod.connect(delModAmp);
+delModAmp.connect(del.delayTime);
+
+del.connect(fb);
+fb.connect(del);
+fb.connect(vol);
+vol.gain.value = 1;
+vol.connect(audio.destination);	
+
 var isUnlocked = false;
 function unlock() {
 
@@ -16,6 +61,7 @@ function unlock() {
 	}, 0);
 
 }
+
 
 for(i = 0; i < 64; i++) {
 	emitters.push(new emitter(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 10 + 2));
