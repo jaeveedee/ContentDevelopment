@@ -51,6 +51,9 @@ var draw = function() {
 		emitters[i].draw();
 	}
 
+	drawButton();
+
+
 };
 
 var dt = 0;
