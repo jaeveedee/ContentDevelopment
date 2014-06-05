@@ -51,7 +51,7 @@ var draw = function() {
 		emitters[i].draw();
 	}
 
-	drawButton();
+
 
 
 };
@@ -67,6 +67,8 @@ var mainLoop = function() {
 	dt = 0;
 	update(dt);
 	draw();
+
+	
 };
 
 mainLoop();

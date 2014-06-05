@@ -1,80 +1,87 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-	
-		<title>Content Development</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	</head>
 
-	<body>
-		<noScript> 
-			No Javascript :( <br>
-		</noScript>	
-		<canvas id="canvas" width="400" height="300" >
-			No Canvas :( <br>
-		</canvas>
-		<canvas id="menu" width="400" height="300" >
-			No Canvas
-		</canvas>
-		
-		<script>
-			document.ontouchmove = function(e){ 
-				e.preventDefault(); 
-			}
-		
-			var canvas = document.getElementById("canvas");
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight * 0.85;
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-			var menu = document.getElementById("menu");
-			menu.width = window.innerWidth;
-			menu.height = window.innerHeight * 0.15;
-			menu.style.background = "black";
-			
-			var context = canvas.getContext("2d");
+    <title>Web Noise Device</title>
 
-			var frameRate = 60;
-			var frameLength	= 1000 / 60;
+    <!-- Bootstrap Core CSS -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-			window.AudioContext = window.AudioContext||window.webkitAudioContext;
+    <!-- Fonts -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 
-			var audio = new AudioContext() || new webkitAudioContext();
-			
-			var vol = audio.createGain();
-			
-			var del = audio.createDelay();
-			del.delayTime.value = 115 / 1000;
-			var fb = audio.createGain();
-			fb.gain.value = .75;
-	
-			var delScale = audio.createGain();
-			delScale.gain.value = .75;
+    <!-- Custom Theme CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
 
-			var delMod = audio.createOscillator();
-			delMod.type = "sine";
-			delMod.frequency.value = .005;
-			delMod.start(0);
+</head>
 
-			var delModAmp = audio.createGain();
-			delModAmp.gain.value = .06;
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
-			delScale.connect(del);
 
-			delMod.connect(delModAmp);
-			delModAmp.connect(del.delayTime);
+    <section class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Web Noise Device</h1>
+                        <p class="intro-text">A Green Cat Collective Web Audio Experience</p>
+                        <div class="page-scroll">
+                            <h2>How To Play</h2>
+                            <a href="#howto" class="btn btn-circle">
+                                <i class="fa fa-angle-double-down animated"></i>
+                            </a>
+                        </div>
 
-			del.connect(fb);
-			fb.connect(del);
-			fb.connect(vol);
-		  	vol.gain.value = 1;
-			vol.connect(audio.destination);	
-			
-		</script>
-		<script src="util.js"></script>
-		<script src="synths.js"></script>
-		<script src="objects.js"></script>
-		<script src="mainLoop.js"></script>
-		<script src="menu.js"></script>
-	</body>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="howto" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>How To Play</h2>
+                <p>Tap anywhere on the screen to create a Wave. When the Waves come in contact with the Nodes, they create sounds!</p>
+                <div class="page-scroll">
+                    <h2>Click to Play</h2>
+                            <a href="wnd.html" class="btn btn-circle">
+                                <i class="fa fa-play animated"></i>
+                            </a>
+                        </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="space" class="content-section text-center">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                 
+                </div>
+            </div>
+    </section>
+
+   
+
+    
+    <!-- Core JavaScript Files -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
+    
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+
+</body>
+
 </html>
